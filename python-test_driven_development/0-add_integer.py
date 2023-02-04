@@ -16,4 +16,4 @@ def add_integer(a, b):
     if not isinstance(b, int) or isinstance(b, bool):
         raise TypeError("b must be an integer")
 
-    return ( a + b )
+    return (a + b)
