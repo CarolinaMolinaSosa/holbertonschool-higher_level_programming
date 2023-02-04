@@ -5,28 +5,24 @@ divide all elements of a matrix
 
 
 def matrix_divided(matrix, div):
-    """
-    divides all elements of a matrix
-    """
-    size = None
-    if type(matrix) is not list:
-        raise TypeError(
-            "matrix must be a matrix (list of lists) of integers/floats")
-    for l in matrix:
-        if type(l) is not list:
-            raise TypeError(
-                "matrix must be a matrix (list of lists) of integers/floats")
-        if size is None:
-            size = len(l)
-        elif size != len(l):
-            raise TypeError("Each row of the matrix must have the same size")
-        for i in l:
-            if type(i) is not int and type(i) is not float:
-                raise TypeError(
-                    "matrix must be a matrix (list of lists)
-                    of integers/floats")
-    if type(div) is not int and type(div) is not float:
+    """ matrix must be a list of lists """
+    if not all([isinstance(row, list) for row in matrix]):
+        raise TypeError("matrix must be a matrix \
+            (list of lists) of integers/floats")
+    # for i in range(len(matrix)):
+    #     for j in range(len(matrix[0])):
+    #         matrix[i][j] = round(matrix[i][j]/div, 2)
+    """ matrix must be a list of lists of integers or floats """
+    if not all([isinstance(j, (int, float)) for row in matrix for j in row]):
+        raise TypeError("matrix must be a \
+matrix (list of lists) of integers/floats")
+    """ Each row of the matrix must be of the same size """
+    if not all([len(matrix[0]) == len(row) for row in matrix]):
+        raise TypeError("Each row of the matrix must have the same size")
+    """ div must be a number (integer or float) """
+    if not isinstance(div, (int, float)):
         raise TypeError("div must be a number")
+    """ div can’t be equal to 0 """
     if div == 0:
         raise ZeroDivisionError("division by zero")
-    return [[round(i / div, 2) for i in l] for l in matrix]
+    return [[round(num/div, 2) for num in row] for row in matrix]
